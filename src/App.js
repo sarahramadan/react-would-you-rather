@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from './actions/shared'
+import Home from './components/Home';
+import NewQuestion from './components/NewQuestion';
+import SignIn from './components/SignIn';
+import LoadingBar from 'react-redux-loading'
 
 class App extends Component {
   componentDidMount() {
@@ -9,10 +13,18 @@ class App extends Component {
   render() {
     return (
       <div>
-        Starter Code
+        <LoadingBar />
+        {this.props.loggedOut? null 
+        : <SignIn/>
+        }
+        
       </div>
     )
   }
 }
-
-export default connect()(App)
+function mapStateToProps({authedUser}) {
+  return {
+      loggedOut: authedUser == null
+  } 
+}
+export default connect(mapStateToProps)(App)
