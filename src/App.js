@@ -4,6 +4,7 @@ import { handleInitialData } from './actions/shared'
 import Home from './components/Home';
 import NewQuestion from './components/NewQuestion';
 import SignIn from './components/SignIn';
+import PollDetails from './components/PollDetails';
 import LoadingBar from 'react-redux-loading'
 
 class App extends Component {
@@ -15,7 +16,7 @@ class App extends Component {
       <div>
         <LoadingBar />
         {this.props.loggedOut? null 
-        : <SignIn/>
+        : <PollDetails />
         }
         
       </div>
