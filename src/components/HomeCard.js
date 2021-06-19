@@ -2,23 +2,26 @@ import { Component } from "react";
 import { connect } from 'react-redux'
 import { Image,Button } from 'react-bootstrap'
 import {formatQuestion} from './../utils/helper'
+import {  withRouter } from 'react-router-dom';
 class HomeCard extends Component {
-    redirectToPollDetails(e, id, isAnswered) {
+    constuctor() {
+        this.redirectToPollDetails = this.redirectToPollDetails.bind(this);
+      }
+    redirectToPollDetails(e, id) {
         e.preventDefault()
-        console.log(id, isAnswered)
+        const path=`/questions/${id}`
+        this.props.history.push(path);
     }
     render() {
-        const {question,isAnswered} = this.props;
+        const {question} = this.props;
         if(question == null){
             return <p> This question doesn't exist</p>
         }
         const { id,
             name,
             avatarURL,
-            timestamp,
             optionOne,
             optionTwo} = question
-        console.log('home card',question,isAnswered);
         return (
             <div>
                 <div className="d-flex justify-content-center p-3">
@@ -40,7 +43,7 @@ class HomeCard extends Component {
                                     <p className="card-text">{optionOne}</p>
                                     <h4 className="card-title">or</h4>
                                     <p className="card-text">{optionTwo}</p>
-                                    <Button variant="outline-info" className="col-8" onClick={(e) => this.redirectToPollDetails(e, id,isAnswered)}>View Poll</Button>
+                                    <Button variant="outline-info" className="col-8" onClick={(e) => this.redirectToPollDetails(e, id)}>View Poll</Button>
                                 </div>
                            
 
@@ -53,14 +56,12 @@ class HomeCard extends Component {
         )
     }
 }
-function mapStateToProps({users,questions,authedUser},{id,isAnswered}) {
+function mapStateToProps({users,questions},{id}) {
     const question = questions[id];
     const author = question ?  users[question.author]: null ;
 
     return {
-        question: question ? formatQuestion(question,author): null,
-        isAnswered
+        question: question ? formatQuestion(question,author): null
     } 
 }
-
-export default connect(mapStateToProps)(HomeCard)
+export default withRouter(connect(mapStateToProps)(HomeCard))

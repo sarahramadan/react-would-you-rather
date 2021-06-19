@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.avatar-image{
+  width: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 40px;
+}

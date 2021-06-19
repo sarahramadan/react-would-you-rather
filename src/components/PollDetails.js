@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect } from 'react-redux'
-import { Form,Button,ProgressBar,Image,Badge} from 'react-bootstrap'
+import { Form,Button,ProgressBar,Image} from 'react-bootstrap'
 import {handleSaveQuestionAnswer} from './../actions/questions'
 
 class PollDetails extends Component {
@@ -14,14 +14,15 @@ class PollDetails extends Component {
               answer }))
     }
     render() {
+        console.log('details',this.props);
         const now = 60;
         const remain = 40;
-const progressOptionOneInstance = (
-  <ProgressBar now={now} label={`${now}%`} visuallyHidden />
-);
-const progressOptionTwoInstance = (
-    <ProgressBar now={remain} label={`${remain}%`} visuallyHidden />
-  );
+        const progressOptionOneInstance = (
+            <ProgressBar now={now} label={`${now}%`} visuallyHidden />
+        );
+        const progressOptionTwoInstance = (
+            <ProgressBar now={remain} label={`${remain}%`} visuallyHidden />
+        );
         return (
             <div>
                            <div className="d-flex justify-content-center p-3 col-8 mx-auto">
@@ -73,15 +74,15 @@ const progressOptionTwoInstance = (
                                 <div className="float-left col-8">
                                     <h4 className="card-title">Result</h4>
                                     <div className="p-3 mb-2 bg-light">
-                                        <span class="badge bg-warning">Your vote</span>
+                                        <span className="badge bg-warning">Your vote</span>
                                         <p>Would you rather be---------</p>
                                         {progressOptionOneInstance}
-                                        <small class="text-muted">4 out of6 votes</small>
+                                        <small className="text-muted">4 out of6 votes</small>
                                     </div>
                                     <div className="p-3 mb-2 bg-light">
                                         <p>Would you rather be---------</p>
                                         {progressOptionTwoInstance}
-                                        <small class="text-muted">2 out of 6 votes</small>
+                                        <small className="text-muted">2 out of 6 votes</small>
                                     </div>
                                 </div>
                            

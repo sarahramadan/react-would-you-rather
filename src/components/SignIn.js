@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect } from 'react-redux'
-import { Form,Button} from 'react-bootstrap'
+import { Button} from 'react-bootstrap'
 class SignIn extends Component {
 
     render() {
@@ -34,6 +34,7 @@ function mapStateToProps({ users, questions, authedUser }) {
     // const author = question ?  users[question.author]: null ;
 
     return {
+
     }
 }
 

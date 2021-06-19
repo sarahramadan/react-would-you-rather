@@ -4,7 +4,6 @@ import HomeCard from "./HomeCard";
 import {  Tabs,Tab } from "react-bootstrap";
 class Home extends Component{
      render (){
-         console.log('Home',this.props);
          return (
              <div>
                  <Tabs defaultActiveKey="unanswered" id="uncontrolled-tab-example">
