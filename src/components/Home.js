@@ -9,12 +9,12 @@ class Home extends Component{
                  <Tabs defaultActiveKey="unanswered" id="uncontrolled-tab-example">
                      <Tab eventKey="unanswered" title="Unanswered Poll">
                          {this.props.unansweredQuestions.map((id) => (
-                             <HomeCard key={id} id={id} isAnswered={false}/>
+                             <HomeCard key={id} id={id}/>
                          ))}
                      </Tab>
                      <Tab eventKey="answered" title="Answered Poll">
                          {this.props.answeredQuestions.map((id) => (
-                             <HomeCard key={id} id={id} isAnswered={true}/>
+                             <HomeCard key={id} id={id}/>
                          ))}
                      </Tab>
 
