@@ -14,7 +14,8 @@ export default function users(state={},action){
                     ...state[qid],
                     [answer]: {
                         ...state[qid][answer],
-                        votes: state[qid][answer].votes.concat([authedUser])
+                        votes: state[qid][answer].votes.find(a=> a === authedUser) ?  state[qid][answer].votes:
+                        state[qid][answer].votes.concat([authedUser])
                     }
                 }
             };

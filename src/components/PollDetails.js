@@ -1,26 +1,40 @@
 import { Component } from "react";
 import { connect } from 'react-redux'
 import { Form,Button,ProgressBar,Image} from 'react-bootstrap'
-import {handleSaveQuestionAnswer} from './../actions/questions'
+import {handleSaveQuestionAnswer} from './../actions/shared'
+import { Redirect } from 'react-router-dom'
 
 class PollDetails extends Component {
-    addUserAnswer = (e,answer) => {
+    state = { answerOption: null , toHome: false };
+    // constructor(props) {
+    //     super(props);
+   
+    //     this.addUserAnswer = this.addUserAnswer.bind(this);
+    //     this.handleSelectAnswer = this.handleSelectAnswer.bind(this);
+    // }
+    handleSelectAnswer(e) {
+        this.setState({ answerOption: e.target.value , toHome: false });
+    }
+    addUserAnswer = (e) => {
         e.preventDefault()
-        const { dispatch, question, authedUser } = this.props
-
-        dispatch(handleSaveQuestionAnswer({ 
+        const { dispatch, question, authedUser } = this.props;
+        dispatch(handleSaveQuestionAnswer({
             authedUser: authedUser,
-             qid:question.id,
-              answer }))
+            qid: question.id,
+            answer: this.state.answerOption
+        }))
+        this.setState({toHome: true });
     }
     render() {
-        const {isAnswerdQuestions,
+        const {        
+            isAnswerdQuestions,
             question,
             questionOwner,
             optionOneNumber,
             optionTwoNumber,
             totalOptionNumber,
             isAnswerdOptionOne} = this.props;
+        const { answerOption,toHome } = this.state;
         const optionOneProgress = optionOneNumber/totalOptionNumber*100;
         const optionTwoProgress = optionTwoNumber/totalOptionNumber*100;
         const progressOptionOneInstance = (
@@ -29,6 +43,9 @@ class PollDetails extends Component {
         const progressOptionTwoInstance = (
             <ProgressBar now={optionTwoProgress} label={`${optionTwoProgress}%`} visuallyHidden />
         );
+        if (toHome === true) {
+            return <Redirect to='/' />
+        }
         return (
             <div>
 
@@ -84,7 +101,7 @@ class PollDetails extends Component {
                     <div className="card col-8 mt-10">
                         <div className="card-horizontal">
                             <div className="card-header">
-                                    <h4 className="card-title">User asks:</h4>
+                                    <h4 className="card-title">{questionOwner.name} asks:</h4>
                             </div>
                             <div className="card-body row">
                                 <h1>Would you rather</h1>
@@ -92,19 +109,23 @@ class PollDetails extends Component {
                                         <div key={`default-radio`} className="mb-3">
                                             <Form.Check
                                                 type='radio'
-                                                id='default-radio'
+                                                id={question.optionOne.text}
                                                 name="group1"
-                                                label={`default radio`}
+                                                label={question.optionOne.text}
+                                                value='optionOne'
+                                                onChange={(e)=>{this.handleSelectAnswer(e)}}
                                             />
 
                                             <Form.Check
                                                 type='radio'
-                                                id='default-radio'
+                                                id={question.optionTwo.text}
                                                 name="group1"
-                                                label={`disabled-default-radio`}
+                                                label={question.optionTwo.text}
+                                                value='optionTwo'
+                                                onChange={(e)=>{this.handleSelectAnswer(e)}}
                                             />
                                         </div>
-                                        <Button variant="outline-info" className="col-12" type="submit">
+                                        <Button variant="outline-info" className="col-12" type="submit" disabled={answerOption === ''} onClick={(e)=>{this.addUserAnswer(e)}}>
                                         Submit
                                     </Button>
                                 </Form>
@@ -130,9 +151,12 @@ function mapStateToProps({users,questions,authedUser},props) {
     let optionTwoNumber = 0;
     let isAnswerdOptionOne = false;
     if(currentUser){
-        console.log( currentUser.answers[id]);
-        isAnswerdQuestions = currentUser.answers[id] != null;   
-        isAnswerdOptionOne  = currentUser.answers[id] == question.optionOne.text;
+        //console.log('currentUser.answers[id]',currentUser.answers[id])
+        if(currentUser.answers[id]){
+            isAnswerdQuestions = true;
+        }
+       // isAnswerdQuestions = !(currentUser.answers[id] === null || currentUser.answers[id] === undefined);   
+        isAnswerdOptionOne  = currentUser.answers[id] == 'optionOne';
     }
     if(question){
         questionOwner = users[question.author];
@@ -147,7 +171,8 @@ function mapStateToProps({users,questions,authedUser},props) {
         optionOneNumber,
         optionTwoNumber,
         totalOptionNumber,
-        isAnswerdOptionOne
+        isAnswerdOptionOne,
+        authedUser
     } 
 }
 
