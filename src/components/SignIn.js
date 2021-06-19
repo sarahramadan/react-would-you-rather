@@ -1,9 +1,27 @@
 import { Component } from "react";
 import { connect } from 'react-redux'
 import { Button} from 'react-bootstrap'
+import { setAuthedUser } from "./../actions/authedUser";
 class SignIn extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {id: ''};
+    
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+    
+      handleChange(event) {
+        this.setState({id: event.target.value});
+      }
+    
+      handleSubmit(event) {
+        event.preventDefault();
+        const { dispatch } = this.props
+        dispatch(setAuthedUser(this.state.id))
+      }
     render() {
+        const { users } = this.props;
         return (
                 <div className="d-flex justify-content-center p-3 col-8 mx-auto">
                     <div className="card col-8 mt-10">
@@ -13,15 +31,21 @@ class SignIn extends Component {
                             </div>
                         <div className="card-body">
                             <h1>Please sign in to continue</h1>
-                            <select className="form-select" >
-                                <option value="grapefruit">Grapefruit</option>
-                                <option value="lime">Lime</option>
+                            <select className="form-select" value={this.state.value} onChange={this.handleChange} >
+                            <option value="" disabled>Select user</option>
+                                {Object.keys(users).map(u =>
+                                    <option key={u} value={u}>
+                                        {users[u].name}
+                                    </option>)
+                                }
+                              
+                                {/* <option value="lime">Lime</option>
                                 <option value="coconut">Coconut</option>
-                                <option value="mango">Mango</option>
+                                <option value="mango">Mango</option> */}
                             </select>
-                            <Button variant="outline-info" className="col-12 mt-3" type="submit">
+                            <Button variant="outline-info" className="col-12 mt-3" type="submit" onClick={(e)=>{this.handleSubmit(e)}}>
                                 Submit
-                                    </Button>
+                            </Button>
                         </div>
                         </div>
                     </div>
@@ -29,12 +53,9 @@ class SignIn extends Component {
         )
     }
 }
-function mapStateToProps({ users, questions, authedUser }) {
-    // const question = questions[id];
-    // const author = question ?  users[question.author]: null ;
-
+function mapStateToProps({ users }) {
     return {
-
+        users
     }
 }
 
