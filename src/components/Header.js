@@ -2,23 +2,22 @@ import { Component } from "react";
 import { connect } from 'react-redux'
 import { Navbar,Button,Nav,Image } from 'react-bootstrap'
 import { logoutUsers } from './../actions/authedUser'
-
+import { Redirect,Link } from 'react-router-dom'
 class Header extends Component {
     submitLogoutUser(e){
-        debugger;
         e.preventDefault()
-
         const { dispatch } = this.props
         dispatch(logoutUsers())
+        return <Redirect to='/' />
     }
 
     render() {
         return (
             <Navbar bg="light" variant="light">
                 <Nav className="me-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/add">New Question</Nav.Link>
-                    <Nav.Link href="/leaderboard">Leader Board</Nav.Link>
+                    <Link to="/" className="header-nav">Home</Link>
+                    <Link to="/add"  className="header-nav">New Question</Link>
+                    <Link to="/leaderboard"  className="header-nav">Leader Board</Link>
                 </Nav>
                 <Navbar.Toggle />
                 {this.props.loggedOut ? null :
@@ -38,7 +37,7 @@ function mapStateToProps({ users, authedUser }) {
    const currentUser = users[authedUser];
     return {
         currentUser,
-        loggedOut: authedUser == null
+        loggedOut: authedUser === null || authedUser=== '' || authedUser===undefined
     }
 }
 

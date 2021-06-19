@@ -22,9 +22,11 @@ class App extends Component {
           {this.props.loggedOut ? <SignIn />
             : 
             <div>
-                <Route path='/' exact  component={Home} />
-                <Route path='/questions/:question_id' component={PollDetails} />
-                <Route path='/add' component={NewQuestion} />    
+               <Fragment>
+                  <Route path='/' exact  component={Home} />
+                  <Route path='/questions/:question_id' component={PollDetails} />
+                  <Route path='/add' component={NewQuestion} />    
+                </Fragment>
             </div>
           }
 
@@ -36,7 +38,7 @@ class App extends Component {
 }
 function mapStateToProps({authedUser}) {
   return {
-      loggedOut: authedUser == null
+    loggedOut: authedUser === null || authedUser=== '' || authedUser===undefined
   } 
 }
 export default connect(mapStateToProps)(App)
