@@ -74,7 +74,7 @@ class PollDetails extends Component {
                                             null
                                            }
                                                    
-                                                    <p>Would you rather be {question.optionOne.text}</p>
+                                                    <p>Would You Rather {question.optionOne.text}</p>
                                                     {progressOptionOneInstance}
                                                     <small className="text-muted">{optionOneNumber} out of {totalOptionNumber} votes</small>
                                                 </div>
@@ -84,7 +84,7 @@ class PollDetails extends Component {
                                             :
                                             null
                                            }
-                                                    <p>Would you rather be {question.optionTwo.text}</p>
+                                                    <p>Would You Rather {question.optionTwo.text}</p>
                                                     {progressOptionTwoInstance}
                                                     <small className="text-muted">{optionTwoNumber} out of {totalOptionNumber} votes</small>
                                                 </div>
@@ -151,7 +151,6 @@ function mapStateToProps({users,questions,authedUser},props) {
     let optionTwoNumber = 0;
     let isAnswerdOptionOne = false;
     if(currentUser){
-        //console.log('currentUser.answers[id]',currentUser.answers[id])
         if(currentUser.answers[id]){
             isAnswerdQuestions = true;
         }

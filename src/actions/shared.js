@@ -1,9 +1,9 @@
 import { getInitialData } from './../utils/api'
-import { receiveUsers, addUserQuestionAnswer } from './../actions/users'
-import { receiveQuestions ,addQuestionAnswer} from './../actions/questions'
+import { receiveUsers, addUserQuestionAnswer ,addUserQuestion} from './../actions/users'
+import { receiveQuestions ,addQuestionAnswer,addQuestion} from './../actions/questions'
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { saveQuestionAnswer } from '../utils/api'
-
+import {  _saveQuestion } from '../utils/_DATA'
 export function handleInitialData() {
     return (dispatch) => {
         dispatch(showLoading())
@@ -31,3 +31,20 @@ export function handleSaveQuestionAnswer(info){
        })
     }
  }
+ export function handleAddNewQuestion (optionOneText, optionTwoText,authedUser){
+    return (dispatch) => {
+        return _saveQuestion({
+            optionOneText,
+            optionTwoText,
+            author: authedUser
+        })
+        .then((question) => {
+            dispatch(addQuestion(question));
+            dispatch(addUserQuestion(authedUser, question.id))
+        })
+        .catch((e) => {
+            console.log('Error in handleAddNewQuestion: ', e)
+          })
+
+    }
+}
