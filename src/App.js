@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router ,Route} from "react-router-dom";
+import { BrowserRouter as Router ,Route,Switch} from "react-router-dom";
 import { connect } from 'react-redux'
 import { handleInitialData } from './actions/shared'
 import Home from './components/Home';
@@ -8,6 +8,7 @@ import SignIn from './components/SignIn';
 import Header from './components/Header';
 import PollDetails from './components/PollDetails';
 import LeaderBoard from './components/LeaderBoard';
+import  NoMatch  from "./components/NoMatch";
 import LoadingBar from 'react-redux-loading'
 import Fragment from 'render-fragment';
 class App extends Component {
@@ -24,11 +25,15 @@ class App extends Component {
             : 
             <div>
                <Fragment>
+               <Switch>
                   <Route path='/' exact  component={Home} />
                   <Route path='/questions/:id' component={PollDetails} />
                   <Route path='/add' component={NewQuestion} />   
                   <Route path='/leaderboard' component={LeaderBoard} />    
+                  <Route path="*"> <NoMatch /> </Route>
+                  </Switch>
                 </Fragment>
+
             </div>
           }
 
