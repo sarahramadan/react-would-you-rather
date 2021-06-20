@@ -38,10 +38,10 @@ class PollDetails extends Component {
         const optionOneProgress = optionOneNumber/totalOptionNumber*100;
         const optionTwoProgress = optionTwoNumber/totalOptionNumber*100;
         const progressOptionOneInstance = (
-            <ProgressBar now={optionOneProgress} label={`${optionOneProgress}%`} visuallyHidden />
+            <ProgressBar now={optionOneProgress} label={`${optionOneProgress}%`}  />
         );
         const progressOptionTwoInstance = (
-            <ProgressBar now={optionTwoProgress} label={`${optionTwoProgress}%`} visuallyHidden />
+            <ProgressBar now={optionTwoProgress} label={`${optionTwoProgress}%`}  />
         );
         if (toHome === true) {
             return <Redirect to='/' />
@@ -155,7 +155,7 @@ function mapStateToProps({users,questions,authedUser},props) {
             isAnswerdQuestions = true;
         }
        // isAnswerdQuestions = !(currentUser.answers[id] === null || currentUser.answers[id] === undefined);   
-        isAnswerdOptionOne  = currentUser.answers[id] == 'optionOne';
+        isAnswerdOptionOne  = currentUser.answers[id] === 'optionOne';
     }
     if(question){
         questionOwner = users[question.author];

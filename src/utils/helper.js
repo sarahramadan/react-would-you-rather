@@ -11,3 +11,14 @@ export function formatQuestion (question, author) {
         optionTwo: question.optionTwo.text
     }
   }
+
+  export function formatLeaderBoard (users) {  
+    let formatedUser = [];
+    Object.values(users).forEach(user => {
+        user['answeredScore'] = Object.keys(user.answers).length;
+        user['questionScore'] = user.questions.length;
+        user['score'] = user['answeredScore'] + user['questionScore']
+        formatedUser.push(user);
+    });
+    return formatedUser;
+  }

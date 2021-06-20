@@ -5,7 +5,7 @@ import { setAuthedUser } from "./../actions/authedUser";
 class SignIn extends Component {
     constructor(props) {
         super(props);
-        this.state = {id: null};
+        this.state = {id: ''};
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,17 +31,13 @@ class SignIn extends Component {
                             </div>
                         <div className="card-body">
                             <h1>Please sign in to continue</h1>
-                            <select className="form-select" value={this.state.value} onChange={this.handleChange} >
-                            <option value={null} selected  disabled>Select user</option>
+                            <select className="form-select" value={this.state.id} onChange={this.handleChange} >
+                            <option value=''   disabled>Select user</option>
                                 {Object.keys(users).map(u =>
                                     <option key={u} value={u}>
                                         {users[u].name}
                                     </option>)
                                 }
-                              
-                                {/* <option value="lime">Lime</option>
-                                <option value="coconut">Coconut</option>
-                                <option value="mango">Mango</option> */}
                             </select>
                             <Button variant="outline-info" className="col-12 mt-3" type="submit" onClick={(e)=>{this.handleSubmit(e)}}>
                                 Submit

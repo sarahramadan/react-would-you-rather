@@ -7,6 +7,7 @@ import NewQuestion from './components/NewQuestion';
 import SignIn from './components/SignIn';
 import Header from './components/Header';
 import PollDetails from './components/PollDetails';
+import LeaderBoard from './components/LeaderBoard';
 import LoadingBar from 'react-redux-loading'
 import Fragment from 'render-fragment';
 class App extends Component {
@@ -25,7 +26,8 @@ class App extends Component {
                <Fragment>
                   <Route path='/' exact  component={Home} />
                   <Route path='/questions/:id' component={PollDetails} />
-                  <Route path='/add' component={NewQuestion} />    
+                  <Route path='/add' component={NewQuestion} />   
+                  <Route path='/leaderboard' component={LeaderBoard} />    
                 </Fragment>
             </div>
           }

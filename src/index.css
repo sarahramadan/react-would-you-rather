@@ -26,3 +26,7 @@ code {
     text-decoration: none;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
+.vl {
+  border-left: 1px solid darkgray;
+  height: 150px;
+}
