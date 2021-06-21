@@ -33,8 +33,12 @@ class PollDetails extends Component {
             optionOneNumber,
             optionTwoNumber,
             totalOptionNumber,
-            isAnswerdOptionOne} = this.props;
+            isAnswerdOptionOne,
+            redirectToNotFound} = this.props;
         const { answerOption,toHome } = this.state;
+        if(redirectToNotFound){
+            return <Redirect to='/404' />
+        }
         const optionOneProgress = optionOneNumber/totalOptionNumber*100;
         const optionTwoProgress = optionTwoNumber/totalOptionNumber*100;
         const progressOptionOneInstance = (
@@ -46,6 +50,7 @@ class PollDetails extends Component {
         if (toHome === true) {
             return <Redirect to='/' />
         }
+
         return (
             <div>
 
@@ -150,11 +155,11 @@ function mapStateToProps({users,questions,authedUser},props) {
     let optionOneNumber =0;
     let optionTwoNumber = 0;
     let isAnswerdOptionOne = false;
+    let redirectToNotFound = false;
     if(currentUser){
         if(currentUser.answers[id]){
             isAnswerdQuestions = true;
         }
-       // isAnswerdQuestions = !(currentUser.answers[id] === null || currentUser.answers[id] === undefined);   
         isAnswerdOptionOne  = currentUser.answers[id] === 'optionOne';
     }
     if(question){
@@ -162,6 +167,8 @@ function mapStateToProps({users,questions,authedUser},props) {
         optionOneNumber = question.optionOne.votes.length;
         optionTwoNumber = question.optionTwo.votes.length;
         totalOptionNumber = optionOneNumber+optionTwoNumber;
+    }else{
+        redirectToNotFound = true;
     }
     return {
         isAnswerdQuestions,
@@ -171,7 +178,8 @@ function mapStateToProps({users,questions,authedUser},props) {
         optionTwoNumber,
         totalOptionNumber,
         isAnswerdOptionOne,
-        authedUser
+        authedUser,
+        redirectToNotFound
     } 
 }
 

@@ -4,9 +4,10 @@ class NoMatch extends Component{
          return (
              <div>
                  <h3 className="d-flex justify-content-center p-3">
-                     Not match page
+                     Not match 404 page
       </h3>
              </div>
+
          )
      }
 }
